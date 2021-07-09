@@ -16,13 +16,13 @@ namespace io.harness.cfsdk.client.api
         private string cluster;
         private CfClient cfClient;
 
-        public SSEListener(DefaultApi defaultApi, FeatureConfigCache featureCache, SegmentCache segmentCache, string environmentID, string clusterIdentifier, CfClient cfClient)
+        public SSEListener(DefaultApi defaultApi, FeatureConfigCache featureCache, SegmentCache segmentCache, string environmentID, string cluster, CfClient cfClient)
         {
             this.defaultApi = defaultApi;
             this.featureCache = featureCache;
             this.segmentCache = segmentCache;
             this.environmentID = environmentID;
-            this.cluster = clusterIdentifier;
+            this.cluster = cluster;
             this.cfClient = cfClient;
         }
 
