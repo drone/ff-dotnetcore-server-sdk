@@ -27,7 +27,7 @@ namespace io.harness.cfsdk.client.api.analytics
         private static string SDK_VERSION = "SDK_VERSION";
 
 
-        private string sdkVerion = "";
+        private string sdkVerion = "1.0.0";
 
         private DefaultApi metricsAPI;
         private AnalyticsCache analyticsCache;
