@@ -14,6 +14,7 @@
 namespace io.harness.cfsdk.HarnessOpenMetricsAPIService
 {
     using System = global::System;
+    using Serilog;
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.11.3.0 (NJsonSchema v10.4.4.0 (Newtonsoft.Json v12.0.0.2))")]
     public partial class Client 
@@ -53,9 +54,9 @@ namespace io.harness.cfsdk.HarnessOpenMetricsAPIService
         /// <param name="environment">environment parameter in query.</param>
         /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task MetricsAsync(string environment, Metrics body)
+        public System.Threading.Tasks.Task MetricsAsync(string environment, string cluster, Metrics body)
         {
-            return MetricsAsync(environment, body, System.Threading.CancellationToken.None);
+            return MetricsAsync(environment, cluster, body, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -63,13 +64,13 @@ namespace io.harness.cfsdk.HarnessOpenMetricsAPIService
         /// <param name="environment">environment parameter in query.</param>
         /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task MetricsAsync(string environment, Metrics body, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task MetricsAsync(string environment, string cluster, Metrics body, System.Threading.CancellationToken cancellationToken)
         {
             if (environment == null)
                 throw new System.ArgumentNullException("environment");
     
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/metrics/{environment}");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/metrics/{environment}?cluster=" + cluster);
             urlBuilder_.Replace("{environment}", System.Uri.EscapeDataString(ConvertToString(environment, System.Globalization.CultureInfo.InvariantCulture)));
     
             var client_ = _httpClient;
@@ -104,6 +105,10 @@ namespace io.harness.cfsdk.HarnessOpenMetricsAPIService
                         ProcessResponse(client_, response_);
     
                         var status_ = (int)response_.StatusCode;
+
+                        Log.Information("API call, url: " + url_);
+                        Log.Information("API call, status: " + status_);
+
                         if (status_ == 200)
                         {
                             return;
