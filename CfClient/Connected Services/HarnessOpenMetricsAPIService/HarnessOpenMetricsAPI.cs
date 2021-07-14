@@ -106,8 +106,8 @@ namespace io.harness.cfsdk.HarnessOpenMetricsAPIService
     
                         var status_ = (int)response_.StatusCode;
 
-                        Log.Debug("API call, url: " + url_);
-                        Log.Debug("API call, status: " + status_);
+                        Log.Information("API call, url: " + url_);
+                        Log.Information("API call, status: " + status_);
 
                         if (status_ == 200)
                         {
