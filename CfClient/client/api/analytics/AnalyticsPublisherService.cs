@@ -27,7 +27,7 @@ namespace io.harness.cfsdk.client.api.analytics
         private static string SDK_VERSION = "SDK_VERSION";
 
 
-        private string sdkVerion = "1.0.0";
+        private string sdkVerion = "1.0.1";
 
         private DefaultApi metricsAPI;
         private AnalyticsCache analyticsCache;
@@ -47,9 +47,9 @@ namespace io.harness.cfsdk.client.api.analytics
 
         public async Task sendDataAndResetCache()
         {
-            Log.Information("Reading from queue and building cache");
+            Log.Information("Reading from queue and building cache, SDL version: " + sdkVerion);
 
-            Dictionary<Analytics, int> all = analyticsCache.GetAllElements();
+            IDictionary<Analytics, int> all = analyticsCache.GetAllElements();
 
             if (all.Count != 0)
             {
@@ -61,8 +61,8 @@ namespace io.harness.cfsdk.client.api.analytics
                     {
                         DateTime startTime = DateTime.Now;
                         HarnessOpenMetricsAPIService.Client client = new HarnessOpenMetricsAPIService.Client(metricsAPI.httpClient);
-                        await client.MetricsAsync(environmentID, cluster, metrics);
                         Log.Information("Trying to send --->  {Eid} ----- {@mb}", environmentID, metrics);
+                        await client.MetricsAsync(environmentID, cluster, metrics);
                         DateTime endTime = DateTime.Now;
                         if ((endTime - startTime).TotalMilliseconds > config.MetricsServiceAcceptableDuration)
                         {
@@ -84,7 +84,7 @@ namespace io.harness.cfsdk.client.api.analytics
             }
         }
 
-        private Metrics prepareMessageBody(Dictionary<Analytics, int> all)
+        private Metrics prepareMessageBody(IDictionary<Analytics, int> all)
         {
             Metrics metrics = new Metrics();
             metrics.TargetData = new List<TargetData>();

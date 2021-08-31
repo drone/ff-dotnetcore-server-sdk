@@ -8,19 +8,11 @@ namespace io.harness.cfsdk.client.cache
     public interface ICache<K, V>
     {
 
-        public void PutAll(ICollection<KeyValuePair<K, V>> keyValuePairs)
-        {
-            foreach (var item in keyValuePairs)
-            {
-                Put(item);
-            }
-        }
+        void PutAll(ICollection<KeyValuePair<K, V>> keyValuePairs);
 
-        public void Put(K key, V value);
-        public void Put(KeyValuePair<K, V> keyValuePair)
-        {
-            Put(keyValuePair.Key, keyValuePair.Value);
-        }
-        public V getIfPresent(K  key);
+        void Put(K key, V value);
+        void Put(KeyValuePair<K, V> keyValuePair);
+       
+        V getIfPresent(K  key);
     }
 }
